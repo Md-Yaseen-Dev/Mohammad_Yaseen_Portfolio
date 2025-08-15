@@ -17,7 +17,7 @@ export default function ProjectsSection() {
       tools: ["React", "TailwindCSS", "Wouter", "Local JSON", "JavaScript"],
       role: "Full Stack Developer",
       description: "I built a Quran web application that provides the complete Quran para-wise with translations in English, Roman Urdu, Hindi, and Telugu. Implemented language filters, a detailed Surah viewer with transliteration and translation, and namaz timings based on user location. The app works fully offline using local JSON data, following industry best practices.",
-      liveDemo: "https://way-to-jannah.vercel.app",
+      liveDemo: "https://quran-way-to-jannah.vercel.app/",
       sourceCode: "https://github.com/Md-Yaseen-Dev/Quran_Way_to_Jannah"
     },
     

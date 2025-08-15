@@ -11,10 +11,10 @@ export default function AboutSection() {
         <div className="floating-orb w-48 h-48 bottom-20 left-10 opacity-5"></div>
       </div>
       
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 py-6 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <motion.h2 
-              className="text-5xl md:text-6xl font-bold mb-4 gradient-text"
+              className="text-5xl md:text-6xl font-bold mb-4 gradient-text pt-2"
               whileHover={{ scale: 1.05 }}
             >
               ABOUT ME

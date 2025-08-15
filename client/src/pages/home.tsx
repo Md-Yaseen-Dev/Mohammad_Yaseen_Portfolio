@@ -31,9 +31,9 @@ export default function Home() {
           {/* Footer */}
           <footer className="bg-background py-8 border-t border-slate-800">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <p className="text-slate-400">
+              <p className="text-slate-400 whitespace-normal">
                 © Developer Portfolio by{" "}
-                <span className="gradient-text hover:text-accent transition-colors cursor-pointer">
+                <span className="gradient-text hover:text-accent transition-colors cursor-pointer block sm:inline">
                   Shaik Mohammad Yaseen
                 </span>
               </p>

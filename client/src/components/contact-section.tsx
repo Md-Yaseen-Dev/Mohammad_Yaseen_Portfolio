@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import EnhancedScrollAnimation from "./enhanced-scroll-animation";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Tooltip } from "@radix-ui/react-tooltip";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -18,7 +19,7 @@ export default function ContactSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.name || !formData.email || !formData.message) {
       toast({
         title: "Error",
@@ -43,21 +44,22 @@ export default function ContactSection() {
     });
   };
 
+
   return (
     <section id="contact" className="py-20 bg-secondary relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 parallax-bg opacity-20"></div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <EnhancedScrollAnimation direction="up" delay={0.2}>
           <div className="text-center mb-16">
-            <motion.h2 
+            <motion.h2
               className="text-5xl md:text-6xl font-bold gradient-text mb-4"
               whileHover={{ scale: 1.05 }}
             >
               CONTACT
             </motion.h2>
-            <motion.p 
+            <motion.p
               className="text-xl text-slate-400 mt-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -65,18 +67,18 @@ export default function ContactSection() {
             >
               Let's work together
             </motion.p>
-            <motion.p 
+            <motion.p
               className="text-slate-300 mt-4 max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
-              If you have any questions or concerns, please don't hesitate to contact me. 
+              If you have any questions or concerns, please don't hesitate to contact me.
               I am open to any work opportunities that align with my skills and interests.
             </motion.p>
           </div>
         </EnhancedScrollAnimation>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 max-w-full">
           {/* Contact Form */}
           <EnhancedScrollAnimation direction="left" delay={0.3}>
@@ -109,7 +111,7 @@ export default function ContactSection() {
                     />
                   </motion.div>
                 </motion.div>
-                
+
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -133,7 +135,7 @@ export default function ContactSection() {
                     />
                   </motion.div>
                 </motion.div>
-                
+
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -157,7 +159,7 @@ export default function ContactSection() {
                     />
                   </motion.div>
                 </motion.div>
-                
+
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -165,8 +167,8 @@ export default function ContactSection() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <Button 
-                    type="submit" 
+                  <Button
+                    type="submit"
                     className="interactive-gradient text-white px-8 py-4 rounded-xl font-semibold text-lg w-full group relative overflow-hidden"
                   >
                     <span className="flex items-center justify-center gap-2">
@@ -178,7 +180,7 @@ export default function ContactSection() {
               </form>
             </motion.div>
           </EnhancedScrollAnimation>
-          
+
           {/* Contact Info */}
           <EnhancedScrollAnimation direction="right" delay={0.4}>
             <div className="space-y-8">
@@ -186,29 +188,54 @@ export default function ContactSection() {
                 { icon: Mail, label: "Email", value: "mohammadyaseen.dev@gmail.com" },
                 { icon: Phone, label: "Phone", value: "+91 7095959867" },
                 { icon: MapPin, label: "Location", value: "Andhra Pradesh, India" }
-              ].map((contact, index) => (
-                <motion.div 
-                  key={index}
-                  className="flex items-center space-x-6 group"
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 + 0.2 }}
-                  whileHover={{ scale: 1.05, x: 10 }}
-                >
-                  <motion.div 
-                    className="w-16 h-16 gradient-bg rounded-xl flex items-center justify-center shadow-lg"
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6 }}
+              ].map((contact, index) => {
+                const shouldTruncate = contact.value.length > 14;
+                const truncatedText = shouldTruncate
+                  ? contact.value.slice(0, 14) + "..."
+                  : contact.value;
+
+                return (
+                  <motion.div
+                    key={index}
+                    className="flex items-center space-x-6 group"
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 + 0.2 }}
+                    whileHover={{ scale: 1.05, x: 10 }}
                   >
-                    <contact.icon className="w-8 h-8 text-white" />
+                    <motion.div
+                      className="min-w-16 h-16 gradient-bg rounded-xl flex items-center justify-center shadow-lg"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <contact.icon className="w-8 h-8 text-white" />
+                    </motion.div>
+                    <div>
+                      <p className="text-slate-400 text-sm font-medium">{contact.label}</p>
+
+                      {/* Mobile view - truncated with tooltip */}
+                      <div className="relative group md:hidden">
+                        <p className="text-xl font-bold gradient-text truncate max-w-[200px]">
+                          {shouldTruncate ? contact.value.slice(0, 14) + "..." : contact.value}
+                        </p>
+
+                        {shouldTruncate && (
+                          <span className="absolute left-0 top-full mt-1 hidden group-hover:block bg-black text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap z-10">
+                            {contact.value}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Desktop view - full text */}
+                      <p className="hidden md:block text-xl font-bold gradient-text">
+                        {contact.value}
+                      </p>
+                    </div>
                   </motion.div>
-                  <div>
-                    <p className="text-slate-400 text-sm font-medium">{contact.label}</p>
-                    <p className="text-xl font-bold gradient-text">{contact.value}</p>
-                  </div>
-                </motion.div>
-              ))}
-              
+                );
+              })}
+
+
               {/* Decorative Elements */}
               <motion.div
                 className="relative mt-12 p-8 backdrop-blur-sm bg-background/10 rounded-2xl border border-slate-700/30"
@@ -225,11 +252,11 @@ export default function ContactSection() {
                     I'm always excited to work on innovative projects and bring creative ideas to life.
                   </p>
                 </motion.div>
-                
+
                 {/* Floating particles */}
                 <motion.div
                   className="absolute top-4 right-4 w-4 h-4 gradient-bg rounded-full"
-                  animate={{ 
+                  animate={{
                     scale: [1, 1.5, 1],
                     opacity: [0.3, 0.8, 0.3]
                   }}
@@ -237,7 +264,7 @@ export default function ContactSection() {
                 />
                 <motion.div
                   className="absolute bottom-4 left-4 w-3 h-3 gradient-bg rounded-full"
-                  animate={{ 
+                  animate={{
                     scale: [1, 1.3, 1],
                     opacity: [0.4, 0.9, 0.4]
                   }}
